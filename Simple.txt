@@ -1,0 +1,20 @@
+*** Settings ***
+Library           Process
+
+*** Test Cases ***
+Alpha
+    Log2    This is Alpha Test
+
+Beta
+    ${var}    Evaluate    '${PREV_TEST_STATUS}'=='PASS'
+    Pass Execution If    '${PREV_TEST_STATUS}' == 'FAIL'    "Prev Test Fail,Skipped."
+    Log    ${PREV_TEST_NAME}
+    Log    ${PREV_TEST_MESSAGE}
+
+Time
+    ${time}    Get Time
+    Log    ${time}
+
+run process
+    ${result}    Run Process    ls    -la
+    log    ${result}
