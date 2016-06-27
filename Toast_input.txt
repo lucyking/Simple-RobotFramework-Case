@@ -1,0 +1,27 @@
+*** Settings ***
+Library           AppiumLibrary    mobile_gif=True
+Library           BuiltIn
+
+*** Test Cases ***
+input
+    [Documentation]    主要测试输入错位问题
+    ${var}    Set Variable    Here is android UI test example by \ RF/UI_Automator
+    log    ${var}
+    Mobile Open Application    http://localhost:4723/wd/hub    platformName=Android    platformVersion=5.0    deviceName=None    app=${CURDIR}/toast.apk    appPackage=com.kylelk.toasttest
+    ...    appActivity=com.kylelk.toasttest.MainActivity
+    Mobile Input Text    identifier=ToastData    123456@163.com
+    sleep    2
+    : FOR    ${n}    IN RANGE    1    30    1
+    \    ${time}    Get Time
+    \    Mobile Input Text    identifier=ToastData    ${time}
+    \    Mobile Click Element    identifier=ShowToast
+    \    sleep    2
+    \    Reset Application
+    \    sleep    5
+    \    Mobile Input Text    identifier=ToastData    test0411z9@163.com
+    \    Mobile Click Element    identifier=ShowToast
+    \    Reset Application
+    \    sleep    5
+    ${time}    Get Time
+    Mobile Input Text    identifier=ToastData    ${time}
+    sleep    10s
